@@ -200,7 +200,49 @@ After a 5000-move TPS run with the parameters above, the program collects
 5001 reactive paths with an acceptance rate of approximately 60\% and a mean
 path length of roughly 220 integration frames.
 
-% ── 6. Output ─────────────────────────────────────────────────────────────────
+% ── 6. Transition Path Density ───────────────────────────────────────────────
+\section{Transition Path Density}
+
+The \emph{transition path density} $\rho_\mathrm{TP}(\mathbf{r})$ quantifies
+how frequently each region of configuration space is visited by reactive
+trajectories.  Given an ensemble of $M$ transition paths
+$\{\mathbf{x}^{(k)}(t)\}_{k=1}^{M}$, each consisting of $N_k$ frames, it is
+estimated as
+\begin{equation}
+    \rho_\mathrm{TP}(\mathbf{r}) \propto
+    \frac{1}{M} \sum_{k=1}^{M} \sum_{i=1}^{N_k}
+    \delta\!\left(\mathbf{r} - \mathbf{x}^{(k)}_i\right),
+\end{equation}
+i.e.\ a histogram of all trajectory frames pooled across the TPS ensemble.
+
+The transition path density is closely related to the \emph{committor function}
+$p_B(\mathbf{r})$, defined as the probability that a trajectory initiated at
+$\mathbf{r}$ with momenta drawn from the Maxwell--Boltzmann distribution reaches
+basin~$\mathcal{B}$ before basin~$\mathcal{A}$.  At equilibrium, the two
+quantities are connected by~\cite{Bolhuis2002}
+\begin{equation}
+    \rho_\mathrm{TP}(\mathbf{r})
+    \propto \rho_\mathrm{eq}(\mathbf{r})\,
+            p_B(\mathbf{r})\,\bigl[1 - p_B(\mathbf{r})\bigr],
+\end{equation}
+where $\rho_\mathrm{eq}(\mathbf{r}) \propto e^{-V(\mathbf{r})/k_\mathrm{B}T}$
+is the equilibrium (Boltzmann) density.  The factor
+$p_B(1-p_B)$ is maximal on the dividing surface where $p_B = 1/2$, which
+defines the \emph{transition state ensemble} in the most rigorous dynamical
+sense.  Consequently, $\rho_\mathrm{TP}$ is concentrated in a narrow
+\emph{transition tube} that traces the dominant reaction channel between the
+two basins; regions away from this tube have negligible weight even if they are
+thermally accessible.
+
+For the M\"{u}ller--Brown potential the transition tube passes through the
+metastable intermediate~C and is funnelled through the rate-limiting saddle
+point at $(-0.822,\, 0.624)$.  Plotting $\log(1 + \rho_\mathrm{TP})$ on a
+fine grid (as in the right panel of the output figure) reveals both the
+preferred pathway and the degree of path heterogeneity: a broad, diffuse
+density indicates multiple competing routes, while a sharp ridge indicates a
+single dominant channel.
+
+% ── 7. Output ─────────────────────────────────────────────────────────────────
 \section{Output}
 
 The program saves a figure (\texttt{tps\_muller\_brown.png}) with two panels.
